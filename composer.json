@@ -1,8 +1,19 @@
 {
+    "name": "jacklul/e621dlpost",
     "require": {
-        "php": ">=5.5",
+        "php": ">=7.4",
         "ext-readline": "*",
         "ext-json": "*",
         "guzzlehttp/guzzle": "^6.3"
+    },
+    "bin": [
+        "dlpost.php"
+    ],
+    "scripts": {
+        "build": [
+            "php -r \"file_exists(__DIR__ . '/e621dlpost.phar') && unlink(__DIR__ . '/e621dlpost.phar');\"",
+            "phar-composer build .",
+            "php -r \"$files = scandir('phar://e621dlpost.phar'); foreach ($files as $file) { !is_dir($file) && $file !== 'dlpost.php' && @unlink('phar://e621dlpost.phar/' . $file); }\""
+        ]
     }
 }
